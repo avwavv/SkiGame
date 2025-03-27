@@ -8,7 +8,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private KeyCode leftInput, rightInput;
     [SerializeField] private float acceleration = 100f, turnSpeed = 100f, minSpeed = 0f, maxSpeed = 500f, minAcc = -250, maxAcc = 250;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Transform groundTransform; 
+    [SerializeField] private Transform groundTransform;
+    [SerializeField] private TakeDamage takeDamage;
     
     private Animator animator;
     private Rigidbody rb;
@@ -23,6 +24,11 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (takeDamage.isHurt)
+        {
+            return;
+        }
+        
         float angle = Mathf.Abs(transform.eulerAngles.y - 180);
         acceleration = Remap(0, 90, maxAcc, minAcc, angle); // Transfroms angle values into acceleration values
         speed += acceleration * Time.fixedDeltaTime;
@@ -35,7 +41,7 @@ public class Movement : MonoBehaviour
     {
         bool isGrounded = Physics.Linecast(transform.position, groundTransform.position, groundLayer);
 
-        if (isGrounded)
+        if (isGrounded && !takeDamage.isHurt)
         {
             if (Input.GetKey(leftInput) && transform.eulerAngles.y < 269)
             {
