@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Leaderboard : MonoBehaviour
 {
     [SerializeField] private List<float> Besttimes = new();
+    [SerializeField] private TextMeshProUGUI[] scoreText;
 
     private void Awake()
     {
@@ -21,6 +23,24 @@ public class Leaderboard : MonoBehaviour
         Besttimes.Add(time);
         Besttimes.Sort();
         SaveData();
+    }
+
+    public void ShowScore()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            scoreText[i].text = "Result "+ i +" : "+ Besttimes[i].ToString("F3");
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.raceEnd += ShowScore;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.raceEnd -= ShowScore;
     }
 
     private void SaveData()

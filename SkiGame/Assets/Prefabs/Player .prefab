@@ -4007,16 +4007,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftInput: 97
   rightInput: 100
-  acceleration: 250
+  acceleration: 50
   turnSpeed: 200
   minSpeed: 0
-  maxSpeed: 2000
+  maxSpeed: 1500
   minAcc: -250
-  maxAcc: 250
+  maxAcc: 75
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   groundTransform: {fileID: 16073820935279232}
+  takeDamage: {fileID: 7514502274900462701}
 --- !u!114 &590723608182514267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4041,6 +4042,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad37c7b647a7724f9d5e313c29bc497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backwardForce: -500
+  upForce: 150
+  stunTime: 2
+  isHurt: 0
 --- !u!1 &4335157639809742679
 GameObject:
   m_ObjectHideFlags: 0
